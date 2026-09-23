@@ -45,6 +45,24 @@ jobs:
         uses: grafana/setup-k6-action@v1
 
       - name: Run k6 performance test
-        uses: grafana/run-k6-action@v0.2.0
+        uses: grafana/run-k6-action@v1
         with:
           path: performance/api-load-test.js
+
+
+  percy:
+    name: Percy Visual Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Percy visual tests
+        uses: cypress-io/github-action@v7
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        with:
+          browser: chrome
+          spec: cypress/e2e/visual.cy.ts
+          command-prefix: "npx percy exec --"
