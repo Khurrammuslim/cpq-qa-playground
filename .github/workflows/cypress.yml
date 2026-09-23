@@ -58,11 +58,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Run Percy visual tests
-        uses: cypress-io/github-action@v7
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-        with:
-          browser: chrome
-          spec: cypress/e2e/visual.cy.ts
-          command-prefix: "npx percy exec --"
+        run: npx percy exec -- npx cypress run --spec "cypress/e2e/visual.cy.ts" --browser chrome
