@@ -3,8 +3,7 @@ import { defineConfig } from "cypress";
 export default defineConfig({
   allowCypressEnv: true,
 
-  // video: true,
-  // videoCompression: true,
+  video: false,
   env: {
     apiBaseUrl: "https://jsonplaceholder.typicode.com",
     uiBaseUrl: "https://www.saucedemo.com",

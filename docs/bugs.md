@@ -1,10 +1,10 @@
-# Bug Report
+# Example Bug Report
 
-## BUG-001 — Checkout allows order completion with invalid postal code
+## BUG-001 — Example: checkout accepts an invalid postal code
 
 ### Summary
 
-Checkout accepts an invalid postal code and allows the user to proceed with the order.
+**Portfolio example:** this document demonstrates how a QA engineer would report a postal-code validation defect. It should not be treated as a verified defect in SauceDemo unless reproduced in the current application version.
 
 ### Environment
 
@@ -39,7 +39,7 @@ The user should not be allowed to continue until the postal code satisfies the d
 
 ### Actual Result
 
-The application accepts the invalid postal code and allows the user to continue to the checkout overview.
+**Example expected observation:** the application accepts the invalid postal code and allows the user to continue to the checkout overview. Reproduce and verify before treating this as a confirmed defect.
 
 ### Severity
 

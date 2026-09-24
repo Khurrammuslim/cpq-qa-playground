@@ -1,4 +1,4 @@
-import { User } from "cypress/types/User.ts";
+import { User } from "../types/User";
 
 class UsersApi {
   private baseUrl = Cypress.env("apiBaseUrl");

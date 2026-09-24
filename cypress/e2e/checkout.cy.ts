@@ -1,11 +1,12 @@
 import ProductsPage from '../pages/ProductsPage';
 import CheckoutPage from '../pages/CheckoutPage';
+import LoginPage from '../pages/LoginPage';
 
 describe('Checkout', () => {
 
   beforeEach(() => {
-    cy.visit('https://www.saucedemo.com/');
-    cy.login('standard_user', 'secret_sauce');
+    LoginPage.visit();
+    cy.loginAsStandardUser();
 
     ProductsPage.addProduct('Sauce Labs Backpack');
     ProductsPage.openCart();

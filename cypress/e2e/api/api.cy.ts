@@ -1,7 +1,7 @@
 const apiBaseUrl = Cypress.env("apiBaseUrl");
-import UsersApi from "cypress/service/UsersApi.ts";
-import { User } from "cypress/types/User.ts";
-import { createUser } from "cypress/factories/userFactory.ts";
+import UsersApi from "../../service/UsersApi";
+import { User } from "../../types/User";
+import { createUser } from "../../factories/userFactory";
 
 describe('API Testing', () => {
 
@@ -43,7 +43,7 @@ it('should create a new user', () => {
   });
 });
 
-it('should create a user with correct request headers', () => {
+it('should return the expected response headers', () => {
   const newUser: User= {
     name: 'QA Automation User',
     username: 'qa_user',
@@ -75,9 +75,9 @@ it('should combine API validation with UI validation', () => {
   });
 
     // Continue with UI validation
-    cy.visit('https://www.saucedemo.com/');
+    cy.visit(Cypress.env('uiBaseUrl'));
 
-    cy.login('standard_user', 'secret_sauce');
+    cy.loginAsStandardUser();
 
     cy.get('[data-test="title"]')
       .should('be.visible')

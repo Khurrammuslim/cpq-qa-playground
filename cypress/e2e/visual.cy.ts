@@ -1,7 +1,9 @@
+import LoginPage from '../pages/LoginPage';
+
 describe('Visual Regression Tests', () => {
   beforeEach(() => {
-    cy.visit('https://www.saucedemo.com/');
-    cy.login('standard_user', 'secret_sauce');
+    LoginPage.visit();
+    cy.loginAsStandardUser();
 
     cy.get('[data-test="title"]')
       .should('be.visible')
