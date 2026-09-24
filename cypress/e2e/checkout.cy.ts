@@ -50,11 +50,13 @@ it('should validate missing postal code', () => {
 });
 
 it('should accept valid boundary-style customer data', () => {
+  cy.fixture("checkoutData").then((data) => {
   CheckoutPage.enterCustomerDetails(
-    'A',
-    'B',
-    '1'
+    data.minimumCustomer.firstName,
+    data.minimumCustomer.lastName,
+    data.minimumCustomer.postalCode
   );
+});
 
   CheckoutPage.clickContinue();
 

@@ -1,0 +1,12 @@
+{
+  "validCustomer": {
+    "firstName": "Khurram",
+    "lastName": "QA",
+    "postalCode": "3431"
+  },
+  "minimumCustomer": {
+    "firstName": "A",
+    "lastName": "B",
+    "postalCode": "1"
+  }
+}

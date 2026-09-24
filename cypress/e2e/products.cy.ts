@@ -1,12 +1,27 @@
 import ProductsPage from '../pages/ProductsPage';
 import CheckoutPage from '../pages/CheckoutPage';
+import LoginPage from "../pages/LoginPage";
 
 describe('Products', () => {
+    let products: {
+  backpack: string;
+  bikeLight: string;
+  boltTShirt: string;
+  fleeceJacket: string;
+  onesie: string;
+  redTShirt: string;
+};
+
+before(() => {
+  cy.fixture("products").then((data) => {
+    products = data.products;
+  });
+});
 
   beforeEach(() => {
-    cy.visit('https://www.saucedemo.com/');
+    LoginPage.visit();
 
-    cy.login('standard_user', 'secret_sauce');
+    cy.loginAsStandardUser();
 
     ProductsPage.verifyProductsPage();
   });
@@ -142,25 +157,22 @@ it('should sort products by price high to low', () => {
 });
 
 it('should add products to cart', () => {
-  ProductsPage.addProduct('Sauce Labs Backpack');
-  ProductsPage.addProduct('Sauce Labs Bike Light');
+  ProductsPage.addProduct(products.backpack);
+  ProductsPage.addProduct(products.bikeLight);
 
   ProductsPage.verifyCartCount(2);
 });
 
-it('should remove a product from the cart', () => {
-  ProductsPage.addProduct('Sauce Labs Backpack');
-  ProductsPage.addProduct('Sauce Labs Bike Light');
-
-  ProductsPage.verifyCartCount(2);
-
-  ProductsPage.removeProduct('Sauce Labs Backpack');
-
+it("should remove a product from the cart", () => {
+  ProductsPage.addProduct(products.backpack);
   ProductsPage.verifyCartCount(1);
+
+  ProductsPage.removeProduct(products.backpack);
+  ProductsPage.verifyCartCount(0);
 });
 
 it('should add product and verify it in cart', () => {
-  ProductsPage.addProduct('Sauce Labs Backpack');
+  ProductsPage.addProduct(products.backpack);
 
   ProductsPage.verifyCartCount(1);
 
@@ -172,18 +184,19 @@ it('should add product and verify it in cart', () => {
 });
 
 it('should complete a checkout successfully', () => {
-  ProductsPage.addProduct('Sauce Labs Backpack');
+  ProductsPage.addProduct(products.backpack);
 
   ProductsPage.openCart();
 
   CheckoutPage.clickCheckout();
 
+  cy.fixture("checkoutData").then((data) => {
   CheckoutPage.enterCustomerDetails(
-    'Khurram',
-    'Muslim',
-    '3431'
+    data.minimumCustomer.firstName,
+    data.minimumCustomer.lastName,
+    data.minimumCustomer.postalCode
   );
-
+});
   CheckoutPage.clickContinue();
 
   cy.get('[data-test="title"]')

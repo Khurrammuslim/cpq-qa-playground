@@ -1,4 +1,6 @@
-class CheckoutPage {
+import BasePage from "./BasePage";
+
+class CheckoutPage extends BasePage {
   checkoutButton = '[data-test="checkout"]';
   firstNameInput = '[data-test="firstName"]';
   lastNameInput = '[data-test="lastName"]';
@@ -8,7 +10,7 @@ class CheckoutPage {
   completeMessage = '[data-test="complete-header"]';
 
   clickCheckout() {
-    cy.get(this.checkoutButton).click();
+    this.click(this.checkoutButton);
   }
 
   enterCustomerDetails(
@@ -16,23 +18,24 @@ class CheckoutPage {
     lastName: string,
     postalCode: string
   ) {
-    cy.get(this.firstNameInput).type(firstName);
-    cy.get(this.lastNameInput).type(lastName);
-    cy.get(this.postalCodeInput).type(postalCode);
+    this.type(this.firstNameInput, firstName);
+    this.type(this.lastNameInput, lastName);
+    this.type(this.postalCodeInput, postalCode);
   }
 
   clickContinue() {
-    cy.get(this.continueButton).click();
+    this.click(this.continueButton);
   }
 
   finishOrder() {
-    cy.get(this.finishButton).click();
+    this.click(this.finishButton);
   }
 
   verifyOrderComplete() {
-    cy.get(this.completeMessage)
-      .should('be.visible')
-      .and('have.text', 'Thank you for your order!');
+    this.verifyText(
+      this.completeMessage,
+      "Thank you for your order!"
+    );
   }
 }
 

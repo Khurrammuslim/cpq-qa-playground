@@ -36,18 +36,26 @@
 //   }
 // }
 Cypress.Commands.add(
-  'login',
+  "login",
   (username: string, password: string) => {
-
     cy.get('[data-test="username"]')
-      .should('be.visible')
+      .should("be.visible")
       .type(username);
 
     cy.get('[data-test="password"]')
-      .should('be.visible')
+      .should("be.visible")
       .type(password);
 
     cy.get('[data-test="login-button"]')
       .click();
   }
 );
+
+Cypress.Commands.add("loginAsStandardUser", () => {
+  cy.fixture("users").then((users) => {
+    cy.login(
+      users.standardUser.username,
+      users.standardUser.password
+    );
+  });
+});
